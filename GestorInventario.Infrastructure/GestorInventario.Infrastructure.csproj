@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\GestorInventario.Application\GestorInventario.Application.csproj" />
     <ProjectReference Include="..\GestorInventario.Domain\GestorInventario.Domain.csproj" />
   </ItemGroup>
 
