@@ -46,9 +46,12 @@ namespace GestorInventario.Infrastructure.Repositories
 
         }
 
-        public Task<Domain.Entities.Usuario> ObtenerPorCorreoAsync(string correo)
+        public async Task<Domain.Entities.Usuario> ObtenerPorCorreoAsync(string correo)
         {
-            throw new NotImplementedException();
+#pragma warning disable CS8603 // Posible tipo de valor devuelto de referencia nulo
+            return await _context.Usuarios
+           .FirstOrDefaultAsync(u => u.Correo == correo);
+#pragma warning restore CS8603 // Posible tipo de valor devuelto de referencia nulo
         }
 
         public async Task<IEnumerable<Domain.Entities.Usuario>> ObtenerTodosAsync()
