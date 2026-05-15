@@ -1,9 +1,11 @@
 ﻿using GestorInventario.Application.Interfaces.Repositories;
 using GestorInventario.Domain.Entities;
 using GestorInventario.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,29 +20,35 @@ namespace GestorInventario.Infrastructure.Repositories
             _context = context;
         }
 
-        public Task<Proveedor> ObtenerPorIdAsync(int id)
+        public async Task<Proveedor> ObtenerPorIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Proveedores.FindAsync(id);
         }
 
-        public Task Crear(Proveedor proveedor)
+        public async Task CrearAsync(Proveedor proveedor)
         {
-            throw new NotImplementedException();
+            await _context.Proveedores.AddAsync(proveedor);
+
+            await _context.SaveChangesAsync();
         }
 
-        public Task Actualizar(Proveedor proveedor)
+        public async Task ActualizarAsync(Proveedor proveedor)
         {
-            throw new NotImplementedException();
+            _context.Proveedores.Update(proveedor);
+
+            await _context.SaveChangesAsync();
         }
 
-        public Task Eliminar(Proveedor proveedor)
+        public async Task EliminarAsync(Proveedor proveedor)
         {
-            throw new NotImplementedException();
+            _context.Proveedores.Remove(proveedor);
+
+            await _context.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<Proveedor>> ObtenerTodosAsync()
+        public async Task<IEnumerable<Proveedor>> ObtenerTodosAsync()
         {
-            throw new NotImplementedException();
+            return await _context.Proveedores.ToListAsync();
         }
     }
 }

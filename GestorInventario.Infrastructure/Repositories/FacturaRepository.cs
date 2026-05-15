@@ -1,6 +1,7 @@
 ﻿using GestorInventario.Application.Interfaces.Repositories;
 using GestorInventario.Domain.Entities;
 using GestorInventario.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,24 +19,28 @@ namespace GestorInventario.Infrastructure.Repositories
             _context = context;
         }
 
-        public Task<IEnumerable<Factura>> ObtenerTodosAsync()
+        public async Task<IEnumerable<Factura>> ObtenerTodosAsync()
         {
-            throw new NotImplementedException();
+            return await _context.Facturas.ToListAsync();
         }
 
-        public Task<Factura?> ObtenerPorIdAsync(int id)
+        public async Task<Factura?> ObtenerPorIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Facturas.FindAsync(id);
         }
 
-        public Task CrearAsync(Factura factura)
+        public async Task CrearAsync(Factura factura)
         {
-            throw new NotImplementedException();
+            await _context.Facturas.AddAsync(factura);
+
+            await _context.SaveChangesAsync();
         }
 
-        public Task EliminarAsync(Factura factura)
+        public async Task EliminarAsync(Factura factura)
         {
-            throw new NotImplementedException();
+            _context.Facturas.Remove(factura);
+
+            await _context.SaveChangesAsync();
         }
     }
 }

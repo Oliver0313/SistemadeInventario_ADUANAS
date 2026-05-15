@@ -9,7 +9,7 @@ namespace GestorInventario.Application.Interfaces.Repositories
 {
     public interface ICategoriaRepository
     {
-        Task<IEnumerable<Categoria>> ObtenerTodosAsync();
+        Task<IEnumerable<Categoria?>> ObtenerTodosAsync();
         Task<Categoria> ObtenerPorIdAsync(int id);
         Task CrearAsync(Categoria categoria);
         Task ActualizarAsync(Categoria categoria);

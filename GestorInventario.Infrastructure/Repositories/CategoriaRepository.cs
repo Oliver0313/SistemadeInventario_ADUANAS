@@ -1,11 +1,12 @@
-﻿using System;
+﻿using GestorInventario.Application.Interfaces.Repositories;
+using GestorInventario.Domain.Entities;
+using GestorInventario.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GestorInventario.Application.Interfaces.Repositories;
-using GestorInventario.Domain.Entities;
-using GestorInventario.Infrastructure.Persistence;
 
 namespace GestorInventario.Infrastructure.Repositories
 {
@@ -18,28 +19,34 @@ namespace GestorInventario.Infrastructure.Repositories
             _context = context;
         }
 
-        public Task CrearAsync(Domain.Entities.Categoria categoria)
+        public async Task CrearAsync(Domain.Entities.Categoria categoria)
         {
-            throw new NotImplementedException();
+            await _context.Categorias.AddAsync(categoria);
+
+            await _context.SaveChangesAsync();
         }
 
-        public Task EliminarAsync(Domain.Entities.Categoria categoria)
+        public async Task EliminarAsync(Domain.Entities.Categoria categoria)
         {
-            throw new NotImplementedException();
+            _context.Categorias.Remove(categoria);
+
+            await _context.SaveChangesAsync();
         }
-        public Task<Domain.Entities.Categoria> ObtenerPorIdAsync(int id)
+        public async Task<Domain.Entities.Categoria?> ObtenerPorIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Categorias.FindAsync(id);
         }
 
-        public Task ActualizarAsync(Domain.Entities.Categoria categoria)
+        public async Task ActualizarAsync(Domain.Entities.Categoria categoria)
         {
-            throw new NotImplementedException();
+            _context.Categorias.Update(categoria);
+
+            await _context.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<Categoria>> ObtenerTodosAsync()
+        public async Task<IEnumerable<Categoria>> ObtenerTodosAsync()
         {
-            throw new NotImplementedException();
+            return await _context.Categorias.ToListAsync();
         }
     }
 }

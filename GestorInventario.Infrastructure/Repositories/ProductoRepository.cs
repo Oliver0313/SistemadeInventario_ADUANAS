@@ -1,10 +1,11 @@
-﻿using System;
+﻿using GestorInventario.Application.Interfaces.Repositories;
+using GestorInventario.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GestorInventario.Application.Interfaces.Repositories;
-using GestorInventario.Infrastructure.Persistence;
 
 namespace GestorInventario.Infrastructure.Repositories
 {
@@ -16,29 +17,35 @@ namespace GestorInventario.Infrastructure.Repositories
             _context = context;
         }
 
-        public Task CrearAsync(Domain.Entities.Producto producto)
+        public async Task CrearAsync(Domain.Entities.Producto producto)
         {
-            throw new NotImplementedException();
+            await _context.Productos.AddAsync(producto);
+
+            await _context.SaveChangesAsync();
         }
 
-        public Task EliminarAsync(Domain.Entities.Producto producto)
+        public async Task EliminarAsync(Domain.Entities.Producto producto)
         {
-            throw new NotImplementedException();
+            _context.Productos.Remove(producto);
+
+            await _context.SaveChangesAsync();
         }
 
-        public Task ActualizarAsync(Domain.Entities.Producto producto)
+        public async Task ActualizarAsync(Domain.Entities.Producto producto)
         {
-            throw new NotImplementedException();
+            _context.Productos.Update(producto);
+
+            await _context.SaveChangesAsync();
         }
 
-        public Task<Domain.Entities.Producto?> ObtenerPorIdAsync(int id)
+        public async Task<Domain.Entities.Producto?> ObtenerPorIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Productos.FindAsync(id);
         }
 
-        public Task<IEnumerable<Domain.Entities.Producto>> ObtenerTodosAsync()
+        public async Task<IEnumerable<Domain.Entities.Producto>> ObtenerTodosAsync()
         {
-            throw new NotImplementedException();
+            return await _context.Productos.ToListAsync();
         }
     }
 }

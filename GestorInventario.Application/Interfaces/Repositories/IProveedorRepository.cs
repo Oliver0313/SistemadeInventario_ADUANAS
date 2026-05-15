@@ -11,8 +11,8 @@ namespace GestorInventario.Application.Interfaces.Repositories
     {
         Task<IEnumerable<Proveedor>> ObtenerTodosAsync();
         public Task<Proveedor> ObtenerPorIdAsync(int id);
-        public Task Crear(Proveedor proveedor);
-        public Task Actualizar(Proveedor proveedor);
-        public Task Eliminar(Proveedor proveedor);
+        public Task CrearAsync(Proveedor proveedor);
+        public Task ActualizarAsync(Proveedor proveedor);
+        public Task EliminarAsync(Proveedor proveedor);
     }
 }

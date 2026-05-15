@@ -1,10 +1,12 @@
-﻿using System;
+﻿using GestorInventario.Application.Interfaces.Repositories;
+using GestorInventario.Domain.Entities;
+using GestorInventario.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GestorInventario.Application.Interfaces.Repositories;
-using GestorInventario.Infrastructure.Persistence;
 
 namespace GestorInventario.Infrastructure.Repositories
 {
@@ -17,24 +19,31 @@ namespace GestorInventario.Infrastructure.Repositories
             _context = context;
         }
 
-        public Task CrearAsync(Domain.Entities.Usuario usuario)
+        public async Task CrearAsync(Domain.Entities.Usuario usuario)
         {
-            throw new NotImplementedException();
+            await _context.Usuarios.AddAsync(usuario);
+
+            await _context.SaveChangesAsync();
         }
 
-        public Task EliminarAsync(Domain.Entities.Usuario usuario)
+        public async Task EliminarAsync(Domain.Entities.Usuario usuario)
         {
-            throw new NotImplementedException();
+            _context.Usuarios.Remove(usuario);
+
+            await _context.SaveChangesAsync();
         }
 
-        public Task ActualizarAsync(Domain.Entities.Usuario usuario)
+        public async Task ActualizarAsync(Domain.Entities.Usuario usuario)
         {
-            throw new NotImplementedException();
+            _context.Usuarios.Update(usuario);
+
+            await _context.SaveChangesAsync();
         }
 
-        public Task<Domain.Entities.Usuario> ObtenerPorIdAsync(int id)
+        public async Task<Domain.Entities.Usuario> ObtenerPorIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Usuarios.FindAsync(id);
+
         }
 
         public Task<Domain.Entities.Usuario> ObtenerPorCorreoAsync(string correo)
@@ -42,9 +51,9 @@ namespace GestorInventario.Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Domain.Entities.Usuario>> ObtenerTodosAsync()
+        public async Task<IEnumerable<Domain.Entities.Usuario>> ObtenerTodosAsync()
         {
-            throw new NotImplementedException();
+            return await _context.Usuarios.ToListAsync();
         }
     }
 }
